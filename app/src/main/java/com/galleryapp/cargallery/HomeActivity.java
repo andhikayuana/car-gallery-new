@@ -1,11 +1,11 @@
 package com.galleryapp.cargallery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 /**
  * @author yuana <andhikayuana@gmail.com>
@@ -30,6 +30,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+        SharedPrefUtil.saveBoolean("LOGIN", false);
+        gotoLogin();
+    }
+
+    private void gotoLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

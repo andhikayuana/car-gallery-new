@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
@@ -43,13 +44,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (username.equals("jarjit") && password.equals("1234567")) {
 
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
+            SharedPrefUtil.saveBoolean("LOGIN", true);
+
+            checkLogin();
 
         } else {
 
             Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show();
 
+        }
+    }
+
+    private void checkLogin() {
+        if (SharedPrefUtil.getBoolean("LOGIN")) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 }
