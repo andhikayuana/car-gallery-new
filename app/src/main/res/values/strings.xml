@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Car Gallery</string>
+    <string name="txt_username">Username</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_home">Home Car Gallery</string>
+    <string name="txt_logout">Logout</string>
+</resources>
