@@ -10,7 +10,7 @@ import android.content.Context;
 
 public class CarGalleryApp extends Application {
 
-    private Context sContext;
+    private static Context sContext;
 
     @Override
     public void onCreate() {
