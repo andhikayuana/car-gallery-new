@@ -1,8 +1,10 @@
-package com.galleryapp.cargallery;
+package com.galleryapp.cargallery.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.galleryapp.cargallery.CarGalleryApp;
 
 /**
  * @author yuana <andhikayuana@gmail.com>

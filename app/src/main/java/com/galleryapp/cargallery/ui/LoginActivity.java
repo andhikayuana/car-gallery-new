@@ -1,4 +1,4 @@
-package com.galleryapp.cargallery;
+package com.galleryapp.cargallery.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.galleryapp.cargallery.R;
+import com.galleryapp.cargallery.data.local.Session;
 
 /**
  * @author yuana <andhikayuana@gmail.com>
@@ -44,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (username.equals("jarjit") && password.equals("1234567")) {
 
-            SharedPrefUtil.saveBoolean("LOGIN", true);
+            Session.getInstance().setLogin(true);
 
             checkLogin();
 
@@ -56,8 +59,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void checkLogin() {
-        if (SharedPrefUtil.getBoolean("LOGIN")) {
-            Intent intent = new Intent(this, HomeActivity.class);
+        if (Session.getInstance().isLogin()) {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
