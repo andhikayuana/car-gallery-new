@@ -1,4 +1,4 @@
-package com.galleryapp.cargallery.ui;
+package com.galleryapp.cargallery.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,25 +10,31 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.galleryapp.cargallery.R;
-import com.galleryapp.cargallery.data.local.Session;
+import com.galleryapp.cargallery.ui.home.HomeActivity;
 
 /**
  * @author yuana <andhikayuana@gmail.com>
  * @since 10/7/17
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
 
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
+    private LoginPresenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        checkLogin();
+        initPresenter();
+        mPresenter.checkLogin();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+    }
+
+    private void initPresenter() {
+        mPresenter = new LoginPresenter(this);
     }
 
     private void initView() {
@@ -41,28 +47,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
-        String username = etUsername.getText().toString();
-        String password = etPassword.getText().toString();
-
-        if (username.equals("jarjit") && password.equals("1234567")) {
-
-            Session.getInstance().setLogin(true);
-
-            checkLogin();
-
-        } else {
-
-            Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show();
-
-        }
+        mPresenter.login();
     }
 
-    private void checkLogin() {
-        if (Session.getInstance().isLogin()) {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+    @Override
+    public void gotoHome() {
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public String getUsername() {
+        return etUsername.getText().toString();
+    }
+
+    @Override
+    public String getPassword() {
+        return etPassword.getText().toString();
+    }
+
+    @Override
+    public void showErrorFailedLogin() {
+        Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,15 +1,7 @@
-package com.galleryapp.cargallery.ui;
+package com.galleryapp.cargallery.ui.home;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
-import com.galleryapp.cargallery.R;
 import com.galleryapp.cargallery.data.local.Session;
 import com.galleryapp.cargallery.data.model.Car;
 import com.galleryapp.cargallery.data.network.RestClient;
@@ -26,21 +18,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * @author yuana <andhikayuana@gmail.com>
- * @since 10/7/17
+ * @author yuana
+ * @since 10/21/17
  */
 
-public class HomeActivity extends AppCompatActivity {
+public class HomePresenter {
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        initView();
-        initData();
+    private final HomeView mView;
+
+    public HomePresenter(HomeView homeView) {
+        mView = homeView;
     }
 
-    private void initData() {
+    public void logout() {
+        Session.getInstance().setLogin(false);
+        mView.gotoLogin();
+    }
+
+    public void getCarAll() {
         RestClient.getInstance()
                 .getApi()
                 .getCarAll()
@@ -58,45 +53,23 @@ public class HomeActivity extends AppCompatActivity {
 
                             List<Car> carList = new Gson().fromJson(data, type);
 
+                            mView.showCarAll(carList);
+
                             Log.d("List<Car>", carList.toString());
 
                         } else {
                             // TODO: 10/14/17  error api
+                            Log.d("DATA", "ERROR");
+                            mView.showErrorCarAll("ERROR RESPONSE");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         // TODO: 10/14/17 error
+                        Log.d("DATA", t.getMessage());
+                        mView.showErrorCarAll(t.getMessage());
                     }
                 });
-    }
-
-    private void initView() {
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_home_activity, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuLogout:
-                Session.getInstance().setLogin(false);
-                gotoLogin();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void gotoLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 }
