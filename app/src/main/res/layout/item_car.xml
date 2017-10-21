@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp">
 
-    <TextView
-        android:id="@+id/tvItemCarMake"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/ivItemCarImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tvItemCarMake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/ivItemCarImage"
+            android:text="@string/txt_honda_jazz" />
+
+        <TextView
+            android:id="@+id/tvItemCarModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvItemCarMake"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/ivItemCarImage"
+            android:text="@string/txt_honda" />
+
+        <TextView
+            android:id="@+id/tvItemCarYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvItemCarMake"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/tvItemCarModel"
+            android:text="@string/txt_year" />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

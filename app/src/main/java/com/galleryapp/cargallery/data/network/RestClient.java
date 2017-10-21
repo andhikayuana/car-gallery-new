@@ -24,16 +24,22 @@ public class RestClient {
         return ourInstance;
     }
 
+    public ApiService getApi(String baseUrl) {
+        return getRetrofit(baseUrl).create(ApiService.class);
+    }
+
     public ApiService getApi() {
-        return getRetrofit().create(ApiService.class);
+        return getApi(Const.BASE_URL);
     }
 
     @NonNull
-    private Retrofit getRetrofit() {
+    private Retrofit getRetrofit(String baseUrl) {
         return new Retrofit
                 .Builder()
-                .baseUrl(Const.BASE_URL)
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
+
 }
