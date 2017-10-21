@@ -18,6 +18,7 @@ import java.util.List;
 public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     private List<Car> mData;
+    private CarAdapterListener mListener;
 
     public CarAdapter(List<Car> mData) {
         this.mData = mData;
@@ -35,7 +36,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
     @Override
     public void onBindViewHolder(CarViewHolder holder, int position) {
         Car item = getItem(position);
-        holder.bind(item);
+        holder.bind(item, mListener);
     }
 
     private Car getItem(int position) {
@@ -45,5 +46,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public void setOnClickListener(CarAdapterListener carAdapterListener) {
+        mListener = carAdapterListener;
     }
 }

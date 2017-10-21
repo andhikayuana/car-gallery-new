@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.galleryapp.cargallery.R;
 import com.galleryapp.cargallery.data.model.Car;
 import com.galleryapp.cargallery.ui.home.adapter.CarAdapter;
+import com.galleryapp.cargallery.ui.home.adapter.CarAdapterListener;
 import com.galleryapp.cargallery.ui.login.LoginActivity;
 
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
  * @since 10/7/17
  */
 
-public class HomeActivity extends AppCompatActivity implements HomeView {
+public class HomeActivity extends AppCompatActivity implements HomeView, CarAdapterListener {
 
     private HomePresenter mPresenter;
     private RecyclerView rvHomeCar;
@@ -76,6 +77,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public void showCarAll(List<Car> carList) {
         CarAdapter carAdapter = new CarAdapter(carList);
+        carAdapter.setOnClickListener(this);
         rvHomeCar.setLayoutManager(new LinearLayoutManager(this));
         rvHomeCar.setAdapter(carAdapter);
     }
@@ -83,5 +85,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public void showErrorCarAll(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemCarClick(Car car) {
+        Toast.makeText(this, car.getMake(), Toast.LENGTH_SHORT).show();
     }
 }

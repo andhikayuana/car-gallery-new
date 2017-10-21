@@ -3,6 +3,7 @@ package com.galleryapp.cargallery.ui.home.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.galleryapp.cargallery.R;
@@ -19,6 +20,7 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
     private ImageView ivItemCarImage;
     private TextView tvItemCarModel;
     private TextView tvItemCarYear;
+    private RelativeLayout rlItemCar;
 
     public CarViewHolder(View itemView) {
         super(itemView);
@@ -30,11 +32,18 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
         ivItemCarImage = (ImageView) itemView.findViewById(R.id.ivItemCarImage);
         tvItemCarModel = (TextView) itemView.findViewById(R.id.tvItemCarModel);
         tvItemCarYear = (TextView) itemView.findViewById(R.id.tvItemCarYear);
+        rlItemCar = (RelativeLayout) itemView.findViewById(R.id.rlItemCar);
     }
 
-    public void bind(Car item) {
+    public void bind(final Car item, final CarAdapterListener mListener) {
         tvItemCarMake.setText(item.getMake());
         tvItemCarModel.setText(item.getModel());
         tvItemCarYear.setText(item.getYear());
+        rlItemCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onItemCarClick(item);
+            }
+        });
     }
 }
