@@ -45,5 +45,12 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
                 mListener.onItemCarClick(item);
             }
         });
+        rlItemCar.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mListener.onItemCarLongClick(item);
+                return true;
+            }
+        });
     }
 }

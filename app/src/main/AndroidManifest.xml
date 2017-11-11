@@ -24,6 +24,10 @@
             android:name=".ui.home.HomeActivity"
             android:label="@string/txt_home" />
 
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:label="@string/txt_detail" />
+
     </application>
 
 </manifest>

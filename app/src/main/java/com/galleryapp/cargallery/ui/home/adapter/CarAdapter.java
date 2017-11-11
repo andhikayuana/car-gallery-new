@@ -48,7 +48,12 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
         return mData.size();
     }
 
-    public void setOnClickListener(CarAdapterListener carAdapterListener) {
+    public void setAdapterListener(CarAdapterListener carAdapterListener) {
         mListener = carAdapterListener;
+    }
+
+    public void remove(Car car) {
+        mData.remove(car);
+        notifyDataSetChanged();
     }
 }

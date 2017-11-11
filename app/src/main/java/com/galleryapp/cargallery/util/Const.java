@@ -5,11 +5,15 @@ package com.galleryapp.cargallery.util;
  * @since 10/14/17
  */
 
-public class Const {
+public final class Const {
 
     public static final String BASE_URL = "http://yuana.dev.php.or.id/slim/public/";
 
-    public class Pref {
+    public final class Pref {
         public static final String IS_LOGIN = "IS_LOGIN";
+    }
+
+    public final class Extra {
+        public static final String DATA = "EXTRA_DATA";
     }
 }

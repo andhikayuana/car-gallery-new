@@ -8,5 +8,8 @@ import com.galleryapp.cargallery.data.model.Car;
  */
 
 public interface CarAdapterListener {
+
     void onItemCarClick(Car car);
+
+    void onItemCarLongClick(Car car);
 }
