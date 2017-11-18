@@ -10,10 +10,31 @@ import android.os.Parcelable;
 
 public class Car implements Parcelable {
 
+    public static final Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>() {
+        @Override
+        public Car createFromParcel(Parcel source) {
+            return new Car(source);
+        }
+
+        @Override
+        public Car[] newArray(int size) {
+            return new Car[size];
+        }
+    };
     private int id;
     private String year;
     private String make;
     private String model;
+
+    public Car() {
+    }
+
+    protected Car(Parcel in) {
+        this.id = in.readInt();
+        this.year = in.readString();
+        this.make = in.readString();
+        this.model = in.readString();
+    }
 
     public int getId() {
         return id;
@@ -57,7 +78,6 @@ public class Car implements Parcelable {
                 '}';
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -70,28 +90,4 @@ public class Car implements Parcelable {
         dest.writeString(this.make);
         dest.writeString(this.model);
     }
-
-    public Car() {
-    }
-
-    protected Car(Parcel in) {
-        this.id = in.readInt();
-        this.year = in.readString();
-        this.make = in.readString();
-        this.model = in.readString();
-    }
-
-    public static final Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>() {
-        @Override
-        public Car createFromParcel(Parcel source) {
-            return new Car(source);
-        }
-
-        @Override
-        public Car[] newArray(int size) {
-            return new Car[size];
-        }
-    };
-
-
 }

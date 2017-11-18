@@ -3,7 +3,9 @@ package com.galleryapp.cargallery.data.network;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * @author yuana <andhikayuana@gmail.com>
@@ -14,4 +16,10 @@ public interface ApiService {
 
     @GET("cars")
     Call<JsonObject> getCarAll();
+
+    @GET("cars/{id}")
+    Call<JsonObject> getCarById(@Path("id") int id);
+
+    @DELETE("cars/{id}")
+    Call<JsonObject> deleteCar(@Path("id") int id);
 }

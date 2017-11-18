@@ -72,4 +72,29 @@ public class HomePresenter {
                     }
                 });
     }
+
+    public void deleteCar(final Car car) {
+        RestClient.getInstance()
+                .getApi()
+                .deleteCar(car.getId())
+                .enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                        if (response.isSuccessful()) {
+                            mView.showSuccessDeleteCar(car);
+                        } else {
+                            Log.d("DATA", "ERROR");
+                            mView.showErrorDeleteCar("ERROR");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        // TODO: 11/18/17
+                        Log.d("DATA", t.getMessage());
+                        mView.showErrorDeleteCar(t.getMessage());
+                    }
+                });
+    }
 }

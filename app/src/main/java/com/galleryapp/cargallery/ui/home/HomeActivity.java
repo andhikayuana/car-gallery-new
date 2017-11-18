@@ -93,6 +93,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
     }
 
     @Override
+    public void showErrorDeleteCar(String message) {
+        Toast.makeText(this,  message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showSuccessDeleteCar(Car car) {
+        carAdapter.remove(car);
+        Toast.makeText(HomeActivity.this, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onItemCarClick(Car car) {
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(Const.Extra.DATA, car);
@@ -108,8 +119,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        carAdapter.remove(car);
-                        Toast.makeText(HomeActivity.this, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                        mPresenter.deleteCar(car);
                     }
                 })
                 .setNegativeButton("Batal", new DialogInterface.OnClickListener() {

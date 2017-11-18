@@ -16,4 +16,8 @@ public interface HomeView {
     void showCarAll(List<Car> carList);
 
     void showErrorCarAll(String message);
+
+    void showErrorDeleteCar(String message);
+
+    void showSuccessDeleteCar(Car car);
 }
