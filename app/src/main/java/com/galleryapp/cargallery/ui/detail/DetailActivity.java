@@ -3,12 +3,14 @@ package com.galleryapp.cargallery.ui.detail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.galleryapp.cargallery.R;
 import com.galleryapp.cargallery.data.model.Car;
 import com.galleryapp.cargallery.util.Const;
+import com.squareup.picasso.Picasso;
 
 /**
  * @author yuana <andhikayuana@gmail.com>
@@ -23,6 +25,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     private TextView tvYear;
     private TextView tvMake;
     private TextView tvModel;
+    private ImageView ivImage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         tvYear = (TextView) findViewById(R.id.tvYear);
         tvMake = (TextView) findViewById(R.id.tvMake);
         tvModel = (TextView) findViewById(R.id.tvModel);
+        ivImage = (ImageView) findViewById(R.id.ivImage);
     }
 
     private void initData() {
@@ -66,5 +70,9 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         tvMake.setText(car.getMake());
         tvModel.setText(car.getModel());
         tvYear.setText(car.getYear());
+        Picasso.with(this)
+                .load(car.getImageUrl())
+                .placeholder(R.drawable.ic_car_logo)
+                .into(ivImage);
     }
 }

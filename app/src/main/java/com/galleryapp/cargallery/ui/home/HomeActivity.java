@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.galleryapp.cargallery.R;
@@ -20,6 +21,7 @@ import com.galleryapp.cargallery.ui.home.adapter.CarAdapter;
 import com.galleryapp.cargallery.ui.home.adapter.CarAdapterListener;
 import com.galleryapp.cargallery.ui.login.LoginActivity;
 import com.galleryapp.cargallery.util.Const;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -130,5 +132,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
                 })
                 .create()
                 .show();
+    }
+
+    @Override
+    public void displayCarImage(ImageView ivItemCarImage, Car item) {
+        Picasso.with(this).load(item.getImageUrl()).into(ivItemCarImage);
     }
 }

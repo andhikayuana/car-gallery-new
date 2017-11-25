@@ -25,6 +25,7 @@ public class Car implements Parcelable {
     private String year;
     private String make;
     private String model;
+    private String imageUrl = "https://images.toyota-europe.com/gb/c-hr/width/1200/exterior-3.jpg";
 
     public Car() {
     }
@@ -34,6 +35,15 @@ public class Car implements Parcelable {
         this.year = in.readString();
         this.make = in.readString();
         this.model = in.readString();
+        this.imageUrl = in.readString();
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getId() {
@@ -75,6 +85,7 @@ public class Car implements Parcelable {
                 ", year='" + year + '\'' +
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 
@@ -89,5 +100,6 @@ public class Car implements Parcelable {
         dest.writeString(this.year);
         dest.writeString(this.make);
         dest.writeString(this.model);
+        dest.writeString(this.imageUrl);
     }
 }

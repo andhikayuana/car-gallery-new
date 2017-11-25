@@ -36,6 +36,7 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(final Car item, final CarAdapterListener mListener) {
+        mListener.displayCarImage(ivItemCarImage, item);
         tvItemCarMake.setText(item.getMake());
         tvItemCarModel.setText(item.getModel());
         tvItemCarYear.setText(item.getYear());
