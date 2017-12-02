@@ -56,4 +56,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
         mData.remove(car);
         notifyDataSetChanged();
     }
+
+    public void add(Car savedCar) {
+        mData.add(savedCar);
+        notifyDataSetChanged();
+    }
 }

@@ -9,4 +9,10 @@
     <string name="txt_honda">Honda</string>
     <string name="txt_year">2017</string>
     <string name="txt_detail">Detail Car Gallery</string>
+    <string name="txt_add_car">Add Car</string>
+    <string name="txt_add">Add Car Gallery</string>
+    <string name="txt_save">Save</string>
+    <string name="txt_hint_year">tahun : YYYY</string>
+    <string name="txt_hint_make">make</string>
+    <string name="txt_hint_model">model</string>
 </resources>

@@ -4,7 +4,10 @@ import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -22,4 +25,12 @@ public interface ApiService {
 
     @DELETE("cars/{id}")
     Call<JsonObject> deleteCar(@Path("id") int id);
+
+    @FormUrlEncoded
+    @POST("cars")
+    Call<JsonObject> saveCar(
+            @Field("year") String year,
+            @Field("make") String make,
+            @Field("model") String model
+    );
 }

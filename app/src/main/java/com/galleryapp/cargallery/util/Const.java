@@ -16,4 +16,8 @@ public final class Const {
     public final class Extra {
         public static final String DATA = "EXTRA_DATA";
     }
+
+    public final class RC {
+        public static final int ADD_CAR = 12323;
+    }
 }

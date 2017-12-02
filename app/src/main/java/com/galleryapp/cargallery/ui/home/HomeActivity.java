@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.galleryapp.cargallery.R;
 import com.galleryapp.cargallery.data.model.Car;
+import com.galleryapp.cargallery.ui.add.AddActivity;
 import com.galleryapp.cargallery.ui.detail.DetailActivity;
 import com.galleryapp.cargallery.ui.home.adapter.CarAdapter;
 import com.galleryapp.cargallery.ui.home.adapter.CarAdapterListener;
@@ -70,8 +71,28 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
             case R.id.menuLogout:
                 mPresenter.logout();
                 break;
+            case R.id.menuAddCar:
+                gotoAddCar();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void gotoAddCar() {
+        Intent intent = new Intent(this, AddActivity.class);
+        startActivityForResult(intent, Const.RC.ADD_CAR);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Const.RC.ADD_CAR && resultCode == RESULT_OK) {
+            Car savedCar = data.getExtras().getParcelable(Const.Extra.DATA);
+            if (savedCar != null) {
+                carAdapter.add(savedCar);
+            }
+        }
     }
 
     @Override
@@ -96,7 +117,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
 
     @Override
     public void showErrorDeleteCar(String message) {
-        Toast.makeText(this,  message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
