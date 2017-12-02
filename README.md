@@ -1,12 +1,13 @@
 # car-gallery-new
 Demo CRUD Android App
 
-API :
+## API :
 
-baseUrl = http://yuana.dev.php.or.id/slim/public
+### baseUrl = `http://yuana.dev.php.or.id/slim/public`
 
-Endpoint
+### Endpoint :
 
+```
 [GET] /cars | get all cars
 [GET] /cars/{id} | get cars by id
 [POST] /cars | insert cars
@@ -24,5 +25,4 @@ body [raw] :
     "model": "world"
 }
 [DELETE] /cars/{id} | delete by id
-
-
+```
