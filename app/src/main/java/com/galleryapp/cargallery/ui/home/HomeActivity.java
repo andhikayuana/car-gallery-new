@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +13,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.galleryapp.cargallery.R;
@@ -36,6 +41,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
     private HomePresenter mPresenter;
     private RecyclerView rvHomeCar;
     private CarAdapter carAdapter;
+    private LinearLayout llErrorStatus;
+    private ImageView ivErrorStatusIcon;
+    private TextView tvErrorStatusTitle;
+    private SwipeRefreshLayout swipeHomeCar;
+    private FloatingActionButton fabAddCar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +65,29 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
     }
 
     private void initView() {
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_car_logo);
+
         rvHomeCar = (RecyclerView) findViewById(R.id.rvHomeCar);
+        llErrorStatus = (LinearLayout) findViewById(R.id.llErrorStatus);
+        ivErrorStatusIcon = (ImageView) findViewById(R.id.ivErrorStatusIcon);
+        tvErrorStatusTitle = (TextView) findViewById(R.id.tvErrorStatusTitle);
+        swipeHomeCar = (SwipeRefreshLayout) findViewById(R.id.swipeHomeCar);
+        fabAddCar = (FloatingActionButton) findViewById(R.id.fabAddCar);
+
+        fabAddCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoAddCar();
+            }
+        });
+        swipeHomeCar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData();
+            }
+        });
     }
 
     @Override
@@ -70,9 +102,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
         switch (item.getItemId()) {
             case R.id.menuLogout:
                 mPresenter.logout();
-                break;
-            case R.id.menuAddCar:
-                gotoAddCar();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -104,6 +133,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
 
     @Override
     public void showCarAll(List<Car> carList) {
+        swipeHomeCar.setRefreshing(false);
+        llErrorStatus.setVisibility(View.GONE);
+
         carAdapter = new CarAdapter(carList);
         carAdapter.setAdapterListener(this);
         rvHomeCar.setLayoutManager(new LinearLayoutManager(this));
@@ -124,6 +156,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
     public void showSuccessDeleteCar(Car car) {
         carAdapter.remove(car);
         Toast.makeText(HomeActivity.this, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNotConnected(String message) {
+        swipeHomeCar.setRefreshing(false);
+        if (carAdapter != null) {
+            carAdapter.removeAll();
+        }
+        llErrorStatus.setVisibility(View.VISIBLE);
+        tvErrorStatusTitle.setText(message);
+        ivErrorStatusIcon.setImageResource(android.R.drawable.ic_delete);
     }
 
     @Override

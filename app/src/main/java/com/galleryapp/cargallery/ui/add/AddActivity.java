@@ -39,6 +39,8 @@ public class AddActivity extends AppCompatActivity implements AddView {
     }
 
     private void initView() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         etYear = (EditText) findViewById(R.id.etYear);
         etMake = (EditText) findViewById(R.id.etMake);
         etModel = (EditText) findViewById(R.id.etModel);
@@ -54,6 +56,9 @@ public class AddActivity extends AppCompatActivity implements AddView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
             case R.id.menuSave:
                 mPresenter.saveCar();
                 break;

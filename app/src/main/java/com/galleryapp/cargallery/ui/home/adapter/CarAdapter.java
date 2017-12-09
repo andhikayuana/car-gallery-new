@@ -45,7 +45,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mData == null ? 0 : mData.size();
     }
 
     public void setAdapterListener(CarAdapterListener carAdapterListener) {
@@ -59,6 +59,11 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     public void add(Car savedCar) {
         mData.add(savedCar);
+        notifyDataSetChanged();
+    }
+
+    public void removeAll() {
+        mData = null;
         notifyDataSetChanged();
     }
 }

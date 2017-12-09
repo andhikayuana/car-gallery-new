@@ -20,4 +20,6 @@ public interface HomeView {
     void showErrorDeleteCar(String message);
 
     void showSuccessDeleteCar(Car car);
+
+    void showNotConnected(String message);
 }

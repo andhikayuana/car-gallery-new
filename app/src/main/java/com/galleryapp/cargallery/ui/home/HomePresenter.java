@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -69,6 +70,10 @@ public class HomePresenter {
                         // TODO: 10/14/17 error
                         Log.d("DATA", t.getMessage());
                         mView.showErrorCarAll(t.getMessage());
+
+                        if (t instanceof UnknownHostException) {
+                            mView.showNotConnected(t.getMessage());
+                        }
                     }
                 });
     }
