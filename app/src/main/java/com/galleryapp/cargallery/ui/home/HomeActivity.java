@@ -1,7 +1,5 @@
 package com.galleryapp.cargallery.ui.home;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -55,8 +53,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
     private FloatingActionButton fabAddCar;
     private Intent mService;
     private PeriodicCheckCarsReceiver mBroadcast;
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
