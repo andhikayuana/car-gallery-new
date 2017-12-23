@@ -1,7 +1,11 @@
 package com.galleryapp.cargallery.ui.home;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +25,8 @@ import android.widget.Toast;
 
 import com.galleryapp.cargallery.R;
 import com.galleryapp.cargallery.data.model.Car;
+import com.galleryapp.cargallery.receiver.PeriodicCheckCarsReceiver;
+import com.galleryapp.cargallery.service.PeriodicCheckCarsService;
 import com.galleryapp.cargallery.ui.add.AddActivity;
 import com.galleryapp.cargallery.ui.detail.DetailActivity;
 import com.galleryapp.cargallery.ui.home.adapter.CarAdapter;
@@ -36,7 +42,8 @@ import java.util.List;
  * @since 10/7/17
  */
 
-public class HomeActivity extends AppCompatActivity implements HomeView, CarAdapterListener {
+public class HomeActivity extends AppCompatActivity implements HomeView, CarAdapterListener,
+        PeriodicCheckCarsReceiver.PeriodicCheckCarsReceiverListener {
 
     private HomePresenter mPresenter;
     private RecyclerView rvHomeCar;
@@ -46,6 +53,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
     private TextView tvErrorStatusTitle;
     private SwipeRefreshLayout swipeHomeCar;
     private FloatingActionButton fabAddCar;
+    private Intent mService;
+    private PeriodicCheckCarsReceiver mBroadcast;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +65,41 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
         setContentView(R.layout.activity_home);
         initView();
         initData();
+        registerReceiver();
+    }
+
+    private void registerReceiver() {
+        mBroadcast = new PeriodicCheckCarsReceiver(this);
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        filter.addAction(PeriodicCheckCarsReceiver.TAG);
+        this.registerReceiver(mBroadcast, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver();
+    }
+
+    private void unregisterReceiver() {
+        this.unregisterReceiver(mBroadcast);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mService = new Intent(this, PeriodicCheckCarsService.class);
+        startService(mService);
+
+
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopService(mService);
     }
 
     private void initPresenter() {
@@ -201,5 +247,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
     @Override
     public void displayCarImage(ImageView ivItemCarImage, Car item) {
         Picasso.with(this).load(item.getImageUrl()).into(ivItemCarImage);
+    }
+
+    @Override
+    public void handleCarsFromReceiver(List<Car> carList) {
+        carAdapter = new CarAdapter(carList);
+        carAdapter.setAdapterListener(this);
+        rvHomeCar.setLayoutManager(new LinearLayoutManager(this));
+        rvHomeCar.setAdapter(carAdapter);
     }
 }

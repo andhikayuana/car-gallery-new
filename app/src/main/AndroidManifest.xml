@@ -32,6 +32,11 @@
             android:name=".ui.add.AddActivity"
             android:label="@string/txt_add" />
 
+        <service
+            android:name=".service.PeriodicCheckCarsService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>
