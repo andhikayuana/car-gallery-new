@@ -255,5 +255,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
         carAdapter.setAdapterListener(this);
         rvHomeCar.setLayoutManager(new LinearLayoutManager(this));
         rvHomeCar.setAdapter(carAdapter);
+        rvHomeCar.scrollToPosition(carAdapter.getItemCount() - 1);
     }
 }
