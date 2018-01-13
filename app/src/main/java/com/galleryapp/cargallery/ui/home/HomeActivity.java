@@ -38,6 +38,10 @@ import java.util.List;
 /**
  * @author yuana <andhikayuana@gmail.com>
  * @since 10/7/17
+ *
+ * - Map
+ * - FCM
+ * - upload/login token
  */
 
 public class HomeActivity extends AppCompatActivity implements HomeView, CarAdapterListener,

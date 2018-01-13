@@ -11,6 +11,7 @@ public final class Const {
 
     public final class Pref {
         public static final String IS_LOGIN = "IS_LOGIN";
+        public static final String DEVICE_TOKEN = "DEVICE_TOKEN";
     }
 
     public final class Extra {

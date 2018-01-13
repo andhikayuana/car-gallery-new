@@ -28,4 +28,8 @@ public class Session {
     public void setLogin(boolean isLogin) {
         SharedPrefUtil.saveBoolean(Const.Pref.IS_LOGIN, isLogin);
     }
+
+    public void saveDeviceToken(String refreshedToken) {
+        SharedPrefUtil.saveString(Const.Pref.DEVICE_TOKEN, refreshedToken);
+    }
 }
