@@ -58,6 +58,11 @@ dependencies {
     compile 'com.google.firebase:firebase-core:11.8.0'
     compile 'com.google.firebase:firebase-crash:11.8.0'
     compile 'com.google.firebase:firebase-messaging:11.8.0'
+
+    /**
+     * Google Map
+     */
+    compile 'com.google.android.gms:play-services-maps:11.8.0'
 }
 
 

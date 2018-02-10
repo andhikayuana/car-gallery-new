@@ -8,6 +8,7 @@ package com.galleryapp.cargallery.util;
 public final class Const {
 
     public static final String BASE_URL = "http://yuana.dev.php.or.id/slim/public/";
+    public static final String BASE_URL_UPLOAD = "https://6dd29778.ngrok.io";
 
     public final class Pref {
         public static final String IS_LOGIN = "IS_LOGIN";

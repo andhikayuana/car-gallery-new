@@ -2,6 +2,7 @@
     package="com.galleryapp.cargallery">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".CarGalleryApp"
@@ -32,6 +33,14 @@
             android:name=".ui.add.AddActivity"
             android:label="@string/txt_add" />
 
+        <activity
+            android:name=".ui.map.MapActivity"
+            android:label="@string/txt_map" />
+
+        <activity
+            android:name=".ui.upload.UploadActivity"
+            android:label="@string/txt_upload" />
+
         <service
             android:name=".service.PeriodicCheckCarsService"
             android:enabled="true"
@@ -48,6 +57,10 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBPjQYoAStMcw3wLDz0H6OklhHmFeT5sLA" />
 
     </application>
 

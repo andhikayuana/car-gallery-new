@@ -16,4 +16,6 @@
     <string name="txt_hint_make">make</string>
     <string name="txt_hint_model">model</string>
     <string name="txt_not_found">Not Found!</string>
+    <string name="txt_map">Map</string>
+    <string name="txt_upload">upload</string>
 </resources>

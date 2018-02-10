@@ -2,12 +2,15 @@ package com.galleryapp.cargallery.data.network;
 
 import com.google.gson.JsonObject;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -33,4 +36,8 @@ public interface ApiService {
             @Field("make") String make,
             @Field("model") String model
     );
+
+    @Multipart
+    @POST("/")
+    Call<JsonObject> uploadImage(@Part MultipartBody.Part file);
 }

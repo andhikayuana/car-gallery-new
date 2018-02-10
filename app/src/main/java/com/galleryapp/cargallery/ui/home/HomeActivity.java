@@ -30,6 +30,8 @@ import com.galleryapp.cargallery.ui.detail.DetailActivity;
 import com.galleryapp.cargallery.ui.home.adapter.CarAdapter;
 import com.galleryapp.cargallery.ui.home.adapter.CarAdapterListener;
 import com.galleryapp.cargallery.ui.login.LoginActivity;
+import com.galleryapp.cargallery.ui.map.MapActivity;
+import com.galleryapp.cargallery.ui.upload.UploadActivity;
 import com.galleryapp.cargallery.util.Const;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +40,7 @@ import java.util.List;
 /**
  * @author yuana <andhikayuana@gmail.com>
  * @since 10/7/17
- *
+ * <p>
  * - Map
  * - FCM
  * - upload/login token
@@ -146,11 +148,27 @@ public class HomeActivity extends AppCompatActivity implements HomeView, CarAdap
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menuMap:
+                gotoMap();
+                break;
+            case R.id.menuUpload:
+                gotoUpload();
+                break;
             case R.id.menuLogout:
                 mPresenter.logout();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void gotoUpload() {
+        Intent intent = new Intent(this, UploadActivity.class);
+        startActivity(intent);
+    }
+
+    private void gotoMap() {
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
     }
 
     private void gotoAddCar() {

@@ -2,6 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menuMap"
+        android:title="@string/txt_map" />
+
+    <item
+        android:id="@+id/menuUpload"
+        android:title="@string/txt_upload" />
+
+    <item
         android:id="@+id/menuLogout"
         android:title="@string/txt_logout" />
 
